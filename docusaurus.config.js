@@ -65,9 +65,11 @@ const config = {
       },
       navbar: {
         // title: 'Warehouse',
+        hideOnScroll: true,
         logo: {
           alt: 'Warehouse Logo',
           src: 'img/logo_type.png',
+          style: {height: "60px"},
         },
         items: [
           {
@@ -77,16 +79,16 @@ const config = {
             label: 'Docs',
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'right',
-            label: 'Bugs',
-          },
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            href: '/',
             position: 'right',
             label: 'Feedback',
+            target: '_blank',
+          },
+          {
+            href: '/',
+            position: 'right',
+            label: 'Bugs',
+            target: '_blank',
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           // {

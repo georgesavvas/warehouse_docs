@@ -6,6 +6,22 @@
 
 /* You can override the default Infima variables here. */
 
+#body {
+  background-image: url(/img/splash_4k.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
+  background-color: rgb(120, 120, 120);
+}
+
+.navbar__logo {
+  height: 60px;
+}
+
+.navbar-sidebar--show {
+  backdrop-filter: none !important;
+}
+
 :root {
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
@@ -16,6 +32,7 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-navbar-height: 80px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */

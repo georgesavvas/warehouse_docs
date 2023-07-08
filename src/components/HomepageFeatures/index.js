@@ -1,32 +1,35 @@
 import React from 'react';
-import clsx from 'clsx';
 import styles from './styles.module.css';
 
 const FeatureList = [
   {
     title: "Docs",
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/docs02.svg').default,
+    href: "docs/intro",
   },
   {
     title: "Feedback",
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: require('@site/static/img/feedback.svg').default,
+    href: "warehouse_docs/feedback",
   },
   {
     title: "Bugs",
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    Svg: require('@site/static/img/bug_grey.svg').default,
+    href: "warehouse_docs/bugs",
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({Svg, title, href}) {
   return (
     <div className={styles.feature}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <h1>{title}</h1>
-        <p>{description}</p>
-      </div>
+      <a href={href}>
+        <div className="text--center">
+          <Svg className={styles.featureSvg} role="img" />
+        </div>
+        <div className="text--center padding-horiz--md">
+          <h1>{title}</h1>
+        </div>
+      </a>
     </div>
   );
 }
