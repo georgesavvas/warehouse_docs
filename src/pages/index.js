@@ -21,13 +21,13 @@ function HomepageHeader() {
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <div className={styles.container}>
-        <HomepageHeader />
-        <HomepageFeatures />
-      </div>
-    </Layout>
+    <div className={styles.container}>
+      <HomepageHeader />
+      <HomepageFeatures />
+    </div>
+    // <Layout
+    //   title={`Hello from ${siteConfig.title}`}
+    //   description="Description will go into a meta tag in <head />">
+    // </Layout>
   );
 }

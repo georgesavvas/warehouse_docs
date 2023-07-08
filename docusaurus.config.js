@@ -79,16 +79,14 @@ const config = {
             label: 'Docs',
           },
           {
-            href: '/',
+            href: 'feedback',
             position: 'right',
             label: 'Feedback',
-            target: '_blank',
           },
           {
-            href: '/',
+            href: 'bugs',
             position: 'right',
             label: 'Bugs',
-            target: '_blank',
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           // {

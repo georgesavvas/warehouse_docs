@@ -10,12 +10,12 @@ const FeatureList = [
   {
     title: "Feedback",
     Svg: require('@site/static/img/feedback.svg').default,
-    href: "warehouse_docs/feedback",
+    href: "feedback",
   },
   {
     title: "Bugs",
     Svg: require('@site/static/img/bug_grey.svg').default,
-    href: "warehouse_docs/bugs",
+    href: "bugs",
   },
 ];
 
