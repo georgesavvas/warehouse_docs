@@ -1,8 +1,17 @@
-.features {
+.featureContainer {
+  width: 75%;
   display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
+  align-content: center;
+  justify-content: space-around;
+}
+
+.feature {
+  cursor: pointer;
+  filter: drop-shadow(15px, 15px, 10px, rgba(0, 0, 0, 255));
+}
+
+.feature:hover {
+  filter: drop-shadow(15px, 15px, 10px, rgba(0, 0, 0, 1));
 }
 
 .featureSvg {

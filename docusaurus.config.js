@@ -9,6 +9,9 @@ const config = {
   title: 'Warehouse',
   tagline: 'Asset Library',
   favicon: 'img/favicon.ico',
+  stylesheets: [
+    "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  ],
 
   // Set the production url of your site here
   url: 'https://github.com',
