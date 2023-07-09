@@ -26,7 +26,7 @@ function Feature({Svg, title, href}) {
         <div className="text--center">
           <Svg className={styles.featureSvg} role="img" />
         </div>
-        <div className="text--center padding-horiz--md">
+        <div className="text--center padding-horiz--md padding-vert--md">
           <h1>{title}</h1>
         </div>
       </a>
