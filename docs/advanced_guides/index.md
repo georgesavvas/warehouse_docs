@@ -1,6 +1,6 @@
 ---
-title: Basic Guides
-sidebar_position: 4
+title: Advanced Guides
+sidebar_position: 5
 ---
 
 # Searching

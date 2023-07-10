@@ -1,7 +1,12 @@
 ---
-title: Developer
-sidebar_position: 6
+title: Basic Guides
+sidebar_position: 4
 ---
 
-# Rest API
-# Python API
+# Searching
+# Using collections
+# Asset tagging
+# Using components
+# Running Tasks
+# Running workflows
+# Publish single asset
