@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwarehouse_docs=self.webpackChunkwarehouse_docs||[]).push([[9161],{6040:(e,s,u)=>{u.r(s),u.d(s,{default:()=>c});var a=u(7294);const c=()=>a.createElement("div",null,"Layout")}}]);
