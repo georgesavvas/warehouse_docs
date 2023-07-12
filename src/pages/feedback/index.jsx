@@ -1,4 +1,5 @@
-import {Layout as FeedbackLayout} from '@theme/Layout';
+import {default as FeedbackLayout} from './Layout';
+import Layout from '@theme/Layout';
 import React from 'react';
 import styles from "./index.module.css";
 
