@@ -6,20 +6,11 @@
 
 /* You can override the default Infima variables here. */
 
-/* #body {
-  background-image: url(/img/splash_4k.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: multiply;
-  background-color: rgb(120, 120, 120);
-} */
-
 #__docusaurus {
-  background-image: url(/img/splash_4k.jpg);
+  background-image: url(/img/splash_dark_4k.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: multiply;
-  background-color: rgb(100, 100, 100);
+  background-size: 100%;
+  background-color: rgb(10, 10, 10);
 }
 
 .navbar__logo {
