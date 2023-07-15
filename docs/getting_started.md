@@ -3,23 +3,23 @@ title: Getting Started
 sidebar_position: 2
 ---
 
-# yep
-Excepteur esse consectetur voluptate reprehenderit. Ut Lorem consequat fugiat est minim ipsum ut Lorem minim nulla ea aliqua. Deserunt fugiat labore nulla laborum ex Lorem deserunt veniam. Sunt et anim nostrud eiusmod ut ea id aute voluptate voluptate labore duis reprehenderit laborum. Elit nisi quis id eu mollit occaecat est aliquip in est veniam aliquip nostrud.
+The Warehouse UI is divided in 2 main sections. On the left side you have the browser and the right side the details of any asset or assets you have selected.
 
-Id pariatur duis non velit duis qui anim ex velit consequat non. Occaecat deserunt esse sint consectetur sunt proident velit. Commodo ipsum culpa consequat occaecat excepteur sint veniam nisi officia culpa id ut minim incididunt. Pariatur consequat et aliqua laboris. Culpa sint adipisicing anim laborum ut culpa minim qui veniam est aliqua reprehenderit proident. Elit sit voluptate ea ut ut do elit excepteur. Labore deserunt consequat exercitation dolore non deserunt veniam duis laborum dolore reprehenderit ut cupidatat dolore.
+# Browser
+The browser will present currently filtered assets on a grid, also displaying the first preview of each asset. You will learn about previews later on but for now you can think of them as different ways to visualise an asset. These grid items, called “asset tiles”, can be resized and viewed in different aspect ratios via the controls at the bottom of the browser. There you will also be able to change how many assets to load per page.
 
-Consequat aliqua occaecat consectetur dolor voluptate non magna do eiusmod amet do minim ea est. Consectetur esse aliqua est tempor laborum. Aliqua adipisicing est ad cupidatat pariatur ut exercitation.
+Left clicking any asset will set it as your current selection while right clicking will let you perform useful actions like copying its path.
 
-Nisi sint dolore ea cupidatat consequat consectetur anim eu cupidatat. Nostrud ex ea non sunt do. Amet ea dolor dolore do id. Et amet exercitation nisi ipsum est. Cupidatat id adipisicing sint consequat elit ullamco velit aute nulla dolor elit consectetur. Est pariatur incididunt exercitation ex dolore elit qui ad dolore. Laboris laboris reprehenderit culpa qui labore voluptate sint duis fugiat est enim aliquip.
+A quick way to filter assets is by using the field at the centre top of the UI, but keep in mind your results are also filtered by your selected collection.
 
-Anim excepteur dolor ut non aliquip. Sint consequat irure minim occaecat commodo ipsum adipisicing excepteur ea adipisicing adipisicing exercitation est amet. Dolor occaecat mollit labore non et nostrud id. Ipsum irure dolore voluptate et ex exercitation minim excepteur aliquip nulla pariatur ad aute.
+## Collections
+As stated in the introduction, warehouse stores assets in a flat hierarchy. Collections allow for categorising assets using rules. Clicking on a collection will filter assets using the collection hierarchy.
 
-Sit consectetur aliquip sunt consequat officia. Adipisicing laboris laboris dolore deserunt dolore qui tempor quis. Ad minim laboris fugiat non. Eiusmod do labore voluptate pariatur.
+# Asset Details
+On the right side of the UI you will find details of your current selection. At the very top there’s the media viewer, below that some basic info about the asset like its name and path, followed by its tags. At the bottom there’s the component list.
 
-Ex laboris nulla incididunt aliquip do fugiat minim anim minim qui qui elit excepteur deserunt. Proident occaecat excepteur id mollit occaecat velit laborum non sint duis eiusmod duis veniam ad. Ex irure ut enim adipisicing. Minim excepteur ex est pariatur magna ex cillum laboris magna minim. Laborum dolore excepteur nulla proident cillum mollit esse nulla aute veniam mollit.
+## Media Viewer
+Assets will (usually) come with previews, which are displayed here. The top area of the viewer can be used to select between them.
 
-Qui incididunt do irure esse sit deserunt sunt qui ullamco adipisicing. Fugiat ut cillum excepteur ea consequat commodo deserunt. Pariatur deserunt voluptate laboris laborum nostrud fugiat nulla exercitation labore. Voluptate mollit fugiat et tempor nulla esse aliqua nulla veniam ullamco sit enim laboris.
-
-Velit sunt quis adipisicing nulla deserunt sint aliqua laborum. Nulla sunt nisi exercitation do culpa magna enim elit. Sunt dolor sit eu eu amet culpa consectetur mollit nostrud occaecat officia voluptate. In ullamco non adipisicing qui ullamco adipisicing excepteur reprehenderit.
-
-Dolore incididunt exercitation excepteur aute culpa velit deserunt. Ad eu dolore dolore reprehenderit adipisicing nulla occaecat qui exercitation. Nostrud nulla ullamco ea deserunt ipsum Lorem ex commodo culpa. Elit culpa ipsum irure magna et quis cillum commodo elit voluptate nostrud. Mollit deserunt eiusmod fugiat veniam eiusmod cupidatat incididunt laborum sint id occaecat. Dolore pariatur duis consequat excepteur anim Lorem tempor minim enim aute. Ad deserunt est in consectetur reprehenderit quis consequat sint consequat aliqua do est consectetur.
+## Component List
+This is where you will find the list of files that make up your selected asset. Right clicking on one of the components will pop a menu with useful actions such as copying the filepath to your clipboard.
