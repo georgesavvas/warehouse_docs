@@ -5,6 +5,7 @@
   justify-content: center;
   align-content: center;
   margin-top: 20px;
+  padding: 0 40px;
 }
 
 .column {
@@ -18,4 +19,40 @@
   display: flex;
   gap: 15px;
   padding: 10px;
+}
+
+.dialogRow {
+  display: flex;
+  gap: 10px;
+}
+
+.dialogContent {
+}
+
+.comments {
+  /* display: flex;
+  flex-direction: column; */
+  /* overflow-y: scroll; */
+}
+
+.commentContainer {
+  background-color: rgb(45, 45, 45);
+  border-radius: 5px;
+  overflow: clip;
+}
+
+.commentHeader {
+  background-color: rgb(15, 15, 15);
+  padding: 5px 10px;
+}
+
+.commentContent {
+  padding: 10px;
+}
+
+.commentConnector {
+  width: 5px;
+  height: 30px;
+  background-color: rgb(40, 40, 40);
+  margin-left: 20px;
 }

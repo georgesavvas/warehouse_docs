@@ -21,7 +21,7 @@ const Feedback = ({data, onClick}) => {
           {tags.map(tag => <Chip key={tag} label={tag} color="secondary" size="small" />)}
         </div>
         <div className={styles.bottomElement}>
-          <Typography color="grey">{comments}</Typography>
+          <Typography color="grey">{comments.length}</Typography>
           <CommentIcon sx={{color: "grey"}} />
         </div>
       </div>
