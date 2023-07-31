@@ -22,7 +22,9 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-
+  customFields: {
+    FEEDBACK_API_URL: process.env.FEEDBACK_API_URL,
+  },
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -82,9 +84,9 @@ const config = {
             label: 'Feedback',
           },
           {
-            href: '/bugs',
+            href: '/issues',
             position: 'right',
-            label: 'Bugs',
+            label: 'Issues',
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           // {

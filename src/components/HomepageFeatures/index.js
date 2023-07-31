@@ -13,9 +13,9 @@ const FeatureList = [
     href: "feedback",
   },
   {
-    title: "Bugs",
+    title: "Issues",
     Svg: require('@site/static/img/bug_grey.svg').default,
-    href: "bugs",
+    href: "issues",
   },
 ];
 

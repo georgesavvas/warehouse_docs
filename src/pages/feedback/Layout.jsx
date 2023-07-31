@@ -1,22 +1,14 @@
 import "react-quill/dist/quill.snow.css";
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Typography } from "@mui/material";
-import React, { useState } from "react";
+import {Button, Typography} from "@mui/material";
+import React, {useState} from "react";
 
 import Column from "../../components/kanban/Column";
 import Feedback from "./Feedback";
-import ReactQuill from "react-quill";
 import styles from "./Layout.module.css";
-
-const dialogStyle = {
-  "& .MuiDialog-container": {
-    "& .MuiPaper-root": {
-      height: "80vh",
-      backgroundColor: "rgb(25, 25, 25)",
-      backgroundImage: "none"
-    },
-  },
-};
+import { useEffect } from "react";
+import { serverRequest } from "../../services";
+import Editor from "./Editor";
 
 const columns = [
   {
@@ -41,7 +33,7 @@ const columns = [
   },
 ];
 
-const data = [
+const extraData = [
   {
     id: "0",
     user: "george",
@@ -156,81 +148,36 @@ const data = [
 ];
 
 export const Layout = () => {
-  const [activeEntry, setActiveEntry] = useState(data[0]);
-  const [value, setValue] = useState('');
+  const [activeEntry, setActiveEntry] = useState();
+  const [data, setData] = useState([]);
 
-  const user = "george";
-
-  const getDialogContent = () => {
-    if (!activeEntry) return null;
-    const userIsAuthor = activeEntry.user === user;
-    const column = columns.find(column => column.status === activeEntry.status);
-    return <>
-      {userIsAuthor ?
-        <Button color="success" variant="outlined" sx={{position: "absolute", right: 10, top: 10}}>
-          Edit
-        </Button>
-      : null}
-      <DialogTitle>
-        {activeEntry.title}
-        <div className={styles.dialogRow}>
-          <Typography color={column.color}>{column.title}</Typography>
-          <Typography color="grey">{activeEntry.created} by {activeEntry.user}</Typography>
-        </div>
-      </DialogTitle>
-      <DialogContent dividers sx={{flexShrink: 0}}>
-        <div className={styles.dialogContent}>
-          <Typography>
-            {activeEntry.content}
-          </Typography>
-        </div>
-      </DialogContent>
-      <DialogTitle>
-        Comments
-      </DialogTitle>
-      <DialogContent sx={{}}>
-        <div className={styles.comments}>
-          {activeEntry.comments.map((comment, index) =>
-            <>
-              <div key={index} className={styles.commentContainer}>
-                <div className={styles.commentHeader}>
-                  <Typography>{comment.created} by {comment.user}</Typography>
-                </div>
-                <div className={styles.commentContent}>
-                  <Typography>
-                    {comment.content}
-                  </Typography>
-                </div>
-              </div>
-              {index < activeEntry.comments.length - 1 ?
-                <div key={`${index}-connector`} className={styles.commentConnector} />
-                : null
-              }
-            </>
-          )}
-        </div>
-        {!activeEntry.comments.length ? <Typography color="grey">No comments</Typography> : null}
-        <Typography variant="h6" sx={{mt: 2}}>New Comment</Typography>
-        <ReactQuill theme="snow" value={value} onChange={setValue} />
-      </DialogContent>
-    </>
-  };
+  useEffect(() => {
+    serverRequest("get_posts", {kind: "rfe"}).then(resp => setData([...resp.data, ...extraData]));
+  }, []);
 
   return (
     <div className={styles.container}>
-      <Dialog
+      <Editor
+        columns={columns}
+        entry={activeEntry}
+        reader="george"
         open={!!activeEntry}
-        fullWidth
-        maxWidth="lg"
         onClose={() => setActiveEntry()}
-        sx={dialogStyle}
-      >
-        {getDialogContent()}
-      </Dialog>
+      />
       <Typography variant="h4" textAlign="center">Feedback</Typography>
       <div className={styles.row}>
         {columns.map(column =>
           <Column key={column.status} title={column.title} color={column.color}>
+            {column.status === "todo" ?
+              <div
+                className={styles.newContainer}
+                key={`${column.status}-new`}
+                onClick={() => setActiveEntry({})}
+              >
+                <Typography variant="h5">Create</Typography>
+              </div>
+              : null
+            }
             {data.filter(entry => entry.status === column.status).map(entry =>
               <Feedback key={entry.id} data={entry} onClick={() => setActiveEntry(entry)} />
             )}
@@ -238,7 +185,7 @@ export const Layout = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Layout;
