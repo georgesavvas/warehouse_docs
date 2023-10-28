@@ -174,7 +174,7 @@ export const Layout = () => {
                 key={`${column.status}-new`}
                 onClick={() => setActiveEntry({})}
               >
-                <Typography variant="h5">Create</Typography>
+                <Typography variant="h5" textAlign="center">Create</Typography>
               </div>
               : null
             }
