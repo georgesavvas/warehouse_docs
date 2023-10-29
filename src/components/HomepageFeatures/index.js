@@ -5,7 +5,7 @@ const FeatureList = [
   {
     title: "Docs",
     Svg: require('@site/static/img/docs02.svg').default,
-    href: "docs/intro",
+    href: "docs",
   },
   {
     title: "Feedback",
