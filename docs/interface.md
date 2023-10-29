@@ -12,7 +12,7 @@ Warehouse stores assets in a flat hierarchy and collections is how they get orga
 
 ![collections](./assets/interface_collections.png)
 
-# Browser
+## Browser
 The browser will present currently filtered assets on a grid, also displaying the first preview of each asset. You will learn about previews later on but for now you can think of them as different ways to visualise an asset. These grid items, called “asset tiles”, can be resized and viewed in different aspect ratios via the controls at the bottom of the browser. You are also able to change how many assets will load per page.
 
 ![browser](!./../assets/interface_browser.png)
@@ -23,13 +23,13 @@ A quick way to filter assets is by using the field at the centre top of the UI, 
 
 [Warning: Forgetting about the selected collection is a common source of confusion when searching for assets using the search bar. If you want to search the entire library please select the top level "All" collection.]
 
-# Asset Details
+## Asset Details
 On the right side of the UI you will find the details of your current selection. At the very top there’s the media viewer, below that some basic info about the asset like its name and path, followed by its tags. At the bottom there’s the component list.
 
 ![browser](!./../assets/interface_details.png)
 
-## Media Viewer
+### Media Viewer
 Assets will (usually) come with previews, which are displayed here. The top area of the viewer can be used to select between them.
 
-## Component List
+### Component List
 This is where you will find the list of files that make up your selected asset. Right clicking on one of the components will pop a menu with useful actions such as copying the filepath to your clipboard.

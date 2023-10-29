@@ -1,6 +1,5 @@
 ---
 title: Advanced Filtering
-sidebar_position: 1
 ---
 
 Next to the filter bar at the top of the UI you will find the filters button. Use it to get access to the full filtering features, including bitwise operations.
