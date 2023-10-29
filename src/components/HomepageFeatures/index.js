@@ -11,23 +11,26 @@ const FeatureList = [
     title: "Feedback",
     Svg: require('@site/static/img/feedback.svg').default,
     href: "feedback",
+    wip: true,
   },
   {
     title: "Issues",
     Svg: require('@site/static/img/bug_grey.svg').default,
     href: "issues",
+    wip: true,
   },
 ];
 
-function Feature({Svg, title, href}) {
+function Feature({Svg, title, href, wip}) {
   return (
-    <div className={styles.feature}>
-      <a href={href}>
+    <div className={styles.feature} style={wip ? {pointerEvents: "none"} : null}>
+      {wip ? <div className={styles.wipContainer}><h2>Coming Soon!</h2></div> : null}
+      <a href={href} style={wip ? {pointerEvents: "none", filter: "brightness(50%)"} : null}>
         <div className="text--center">
           <Svg className={styles.featureSvg} role="img" />
         </div>
         <div className="text--center padding-horiz--md padding-vert--md">
-          <h1>{title}</h1>
+          <h1 style={{color: "lightgrey", textDecoration: "none"}}>{title}</h1>
         </div>
       </a>
     </div>

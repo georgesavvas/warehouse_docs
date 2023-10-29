@@ -3,6 +3,7 @@
   display: flex;
   align-content: center;
   justify-content: space-around;
+  z-index: 1;
 }
 
 .feature {
@@ -18,4 +19,16 @@
 .featureSvg {
   height: 200px;
   width: 200px;
+}
+
+.wipContainer {
+  position: absolute;
+  rotate: -30deg;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.75));
+  color: lightgrey;
+  text-align: center;
+  z-index: 2;
 }
