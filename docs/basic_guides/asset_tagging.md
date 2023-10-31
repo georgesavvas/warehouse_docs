@@ -1,6 +1,5 @@
 ---
 title: Asset Tagging
-sidebar_position: 3
 ---
 
 Tags are initially set up by artists when creating an asset but can easily be changed afterwards. With your asset selected head over to the details section on the right side.

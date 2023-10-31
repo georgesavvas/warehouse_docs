@@ -1,6 +1,5 @@
 ---
 title: Creating Single Assets
-sidebar_position: 7
 ---
 
 Hit the “Create” button at the top left of the UI and select “Single”. A window will pop that is separated into 3 columns, as well as some basic details at the very top.

@@ -3,5 +3,11 @@ title: Developer
 sidebar_position: 6
 ---
 
-# Rest API
-# Python API
+# Developer
+
+:::info
+Coming soon!
+:::
+
+<!-- ## Rest API -->
+<!-- ## Python API -->

@@ -11,7 +11,23 @@ There’s no asset type system and any single asset can be comprised of very dif
 For example a “light snowfall” asset could come with a few video element components to be used in Nuke or After Effects and it could also come with a baked geometry cache to be used in Houdini and Maya scenes. It could even include a HDA component that can run a live simulation as well as create the relevant shaders.
 Assets can also come with various previews which is what browsing artists use to get an idea of what the asset looks like.
 
-![asset](./assets/concepts_asset.png)
+Example asset structure:
+* Asset
+  * Name: gift
+  * Tags: present, box, ribbon, tied, model, look
+  * Components:
+    * `model.abc`
+    * `look.otl`
+    * `diffuse.####.exr`
+    * `spec.####.exr`
+    * `bump.####.exr`
+    * `preview360.####.png` \<- Non functional component, only used for previewing
+    * `wireframe360.####.png` \<- Non functional component, only used for previewing
+  * Previews
+    * Preview #1<br/>Type: Image Sequence<br/>Component: preview360.####.exr
+    * Preview #2<br/>Type: Image Sequence<br/>Component: wireframe360.####.exr
+
+<!-- ![asset](./assets/concepts_asset.png) -->
 
 ## Component
 Components are the files and file sequences that assets are made of. They can be virtually any kind of file type. A few examples of what components can be are:
@@ -31,11 +47,12 @@ Components also have tasks that can be performed on them via the right click men
 The flexibility of what an asset can possibly consist of creates the issue of properly showcasing what it looks like. Thankfully assets can come with previews which are a way of rendering components in appropriate way for the browsing artists to get a better idea of what they’ll be importing.
 
 Currently previews can be one the following:
+* 3D Prerendered (Similar to a turntable but rotates in 2 axis)
 * Images
 * Tiled images
-* Image sequences
+* Image sequences (Also used for turntables)
 * Videos
-* Code
+* Code (Python, MEL as well as Nuke scenes)
 <!-- * 3D views -->
 
 ## Actions
