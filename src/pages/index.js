@@ -26,10 +26,10 @@ export default function Home() {
     <div className={styles.container}>
       <HomepageHeader />
       <HomepageFeatures />
-      {/* <div className={styles.anim}>
+      <div className={styles.anim}>
         <div className={styles.bgFilter} />
         <div className={styles.bg} />
-      </div> */}
+      </div>
     </div>
   );
 }
