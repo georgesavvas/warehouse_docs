@@ -15,7 +15,7 @@ const FeatureList = [
   },
   {
     title: "Issues",
-    Svg: require('@site/static/img/bug_grey.svg').default,
+    Svg: require('@site/static/img/bug02.png').default,
     href: "issues",
     wip: true,
   },
