@@ -10,6 +10,7 @@
   cursor: pointer;
   filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.25));
   transition: filter 0.25s;
+position: relative;
 }
 
 .feature:hover {
@@ -19,6 +20,11 @@
 .featureSvg {
   height: 200px;
   width: 200px;
+}
+
+.Issues {
+  /* height: 160px; */
+  padding-top: 40px;
 }
 
 .wipContainer {

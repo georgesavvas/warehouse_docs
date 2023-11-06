@@ -92,18 +92,18 @@ const config = {
       },
     }),
 
-  headTags: [
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'preload',
-        href: '/fonts/Roboto-Thin.ttf',
-        as: 'font',
-        type: 'font/ttf',
-        crossorigin: 'anonymous',
-      },
-    },
-  ]
+  // headTags: [
+  //   {
+  //     tagName: 'link',
+  //     attributes: {
+  //       rel: 'preload',
+  //       href: '/fonts/Roboto-Thin.ttf',
+  //       as: 'font',
+  //       type: 'font/ttf',
+  //       crossorigin: 'anonymous',
+  //     },
+  //   },
+  // ]
 };
 
 module.exports = config;

@@ -27,7 +27,7 @@ function Feature({Svg, title, href, wip}) {
       {wip ? <div className={styles.wipContainer}><h2>Coming Soon!</h2></div> : null}
       <a href={href} style={wip ? {pointerEvents: "none", filter: "brightness(50%)"} : null}>
         <div className="text--center">
-          <Svg className={styles.featureSvg} role="img" />
+          <Svg className={styles.featureSvg + " " + styles[title]} role="img" />
         </div>
         <div className="text--center padding-horiz--md padding-vert--md">
           <h1 style={{color: "lightgrey", textDecoration: "none"}}>{title}</h1>
