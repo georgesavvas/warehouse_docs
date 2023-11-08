@@ -150,14 +150,35 @@ const extraData = [
 export const Layout = () => {
   const [activeEntry, setActiveEntry] = useState();
   const [data, setData] = useState([]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    serverRequest("get_posts", {kind: "rfe"}).then(resp => setData([...resp.data, ...extraData]));
+    if (user.name && user.address) return;
+    const data = localStorage.getItem("warehouseUser");
+    if (!data) {
+      console.log
+      return;
+    }
+    const userData = localStorage.getItem("warehouseUser");
+    const parsedUser = JSON.parse(userData);
+    if (!parsedUser.name || !parsedUser.email) {
+      console.log("Failed to parse user data", userData);
+      return;
+    }
+    parsedUser.username = parsedUser.email.split("@")[0];
+    setUser(parsedUser);
+  }, []);
+
+  useEffect(() => {
+    serverRequest("get_posts", {kind: "rfe"}).then(resp => {
+      if (resp?.data) setData(resp.data);
+    });
   }, []);
 
   return (
     <div className={styles.container}>
       <Editor
+        reader={user.username}
         columns={columns}
         entry={activeEntry}
         reader="george"

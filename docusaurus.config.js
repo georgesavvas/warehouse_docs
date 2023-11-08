@@ -20,7 +20,7 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
 
   customFields: {
-    FEEDBACK_API_URL: process.env.FEEDBACK_API_URL,
+    FEEDBACK_API_URL: process.env.FEEDBACK_API_URL || "localhost:8081",
   },
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -69,11 +69,16 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'docs',
-            position: 'right',
-            label: 'Docs',
+            type: "custom-login",
+            position: "right",
+            itemProp: 44,
           },
+          // {
+          //   type: 'docSidebar',
+          //   sidebarId: 'docs',
+          //   position: 'right',
+          //   label: 'Docs',
+          // },
           // {
           //   href: '/feedback',
           //   position: 'right',
@@ -90,8 +95,11 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
-    }),
 
+      metadata: [
+        {name: "referrer", content: "strict-origin-when-cross-origin"},
+      ],
+    }),
   // headTags: [
   //   {
   //     tagName: 'link',

@@ -3,7 +3,22 @@
   gap: 10px;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  padding: 15px;
+  gap: 10px;
+}
+
 .content {
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; */
+  min-height: 100px;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .comments {
@@ -41,6 +56,20 @@
   margin-top: 10px;
 }
 
-.quillContainer {
-  /* min-height: 300px; */
+.editorContainer {
+  height: 100%;
+}
+
+.markdownEditor {
+  /* background-color: rgb(40, 40, 40); */
+  border:  solid 1px rgb(80, 80, 80);
+  height: 100%;
+  border-radius: 5px;
+}
+
+.buttonContainer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }

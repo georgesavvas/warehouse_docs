@@ -1,12 +1,13 @@
 .container {
   min-height: 100px;
-  border: solid rgb(60, 60, 60) 1px;
+  border: solid rgb(40, 40, 40) 1px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
   cursor: pointer;
+  backdrop-filter: blur(15px);
 }
 
 .container:hover {
