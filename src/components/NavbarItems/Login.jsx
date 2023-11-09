@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import AES from "crypto-js/aes";
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
@@ -26,10 +27,10 @@ export const Login = () => {
       {!loggedIn && <GoogleLogin
         useOneTap
         // auto_select
-        theme="filled_black"
+        // theme="filled_black"
         onSuccess={handleGoogleSuccess}
         onError={() => {
-          console.log('Login Failed');
+          console.log("Login Failed");
         }}
       />}
     </div>
