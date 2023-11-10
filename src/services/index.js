@@ -7,8 +7,9 @@ export async function serverRequest(method, data=undefined) {
     console.log("FEEDBACK_API_URL not defined");
     return {ok: false};
   }
-  return {ok: false};
-  const resp = await fetch(`http://${FEEDBACK_API_URL}/api/v1/${method}`, {
+  // return {ok: false};
+  // const resp = await fetch(`http://${FEEDBACK_API_URL}/api/v1/${method}`, {
+  const resp = await fetch(`https://5993-212-115-157-45.ngrok-free.app/api/v1/${method}`, {
     method: !data ? "GET" : "POST",
     headers: {
       "Accept": "application/json, text/plain, */*",

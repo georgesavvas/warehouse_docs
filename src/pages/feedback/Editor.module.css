@@ -1,5 +1,6 @@
 .row {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -12,30 +13,51 @@
   gap: 10px;
 }
 
-.content {
+.contentContainer {
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
+  /* height: max-content; */
   min-height: 100px;
   max-height: 100%;
+  flex-grow: 0.6;
+  flex-basis: 0;
   overflow: auto;
 }
 
+.commentsContainer {
+  flex-basis: 0;
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .comments {
-  /* display: flex;
-  flex-direction: column; */
-  /* overflow-y: scroll; */
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.commentsScroll {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
 }
 
 .commentContainer {
-  background-color: rgb(45, 45, 45);
+  /* background-color: rgb(45, 45, 45); */
+  background-color: rgb(34, 68, 45);
   border-radius: 5px;
-  overflow: clip;
+  margin-right: 5px;
 }
 
 .commentHeader {
-  background-color: rgb(15, 15, 15);
-  padding: 5px 10px;
+  /* background-color: rgb(15, 15, 15); */
+  padding: 8px 10px;
+  padding-bottom: 0;
 }
 
 .commentContent {
@@ -61,10 +83,15 @@
 }
 
 .markdownEditor {
-  /* background-color: rgb(40, 40, 40); */
   border:  solid 1px rgb(80, 80, 80);
   height: 100%;
   border-radius: 5px;
+  padding: 8px 12px;
+}
+
+.markdownPreview {
+  height: 100%;
+  padding: 8px 4px;
 }
 
 .buttonContainer {
@@ -72,4 +99,11 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.editorCommentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
 }

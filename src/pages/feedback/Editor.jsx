@@ -1,14 +1,21 @@
 import "react-quill/dist/quill.bubble.css";
 import "./quill.css";
 
-import {Button, Dialog, DialogContent, DialogTitle, TextField, Typography} from "@mui/material";
+import {AnimatePresence, motion} from "framer-motion";
+import {Button, Dialog, DialogContent, DialogTitle, MenuItem, TextField, Typography} from "@mui/material";
 import React, {useEffect, useRef, useState} from "react";
 
 import ReactQuill from "react-quill";
+import Tags from "../../components/Tags";
 import {serverRequest} from "../../services";
 import styles from "./Editor.module.css";
+import timeAgo from "../../utils/timeAgo";
 import {useSnackbar} from "notistack";
 import { v4 as uuidv4 } from 'uuid';
+
+const sortComments = (a, b) => {
+  return a.created < b.created ? -1 : 1;
+};
 
 const Editor = props => {
   const editorRef = useRef();
@@ -17,9 +24,11 @@ const Editor = props => {
   const [contentValue, setContentValue] = useState("");
   const [commentValue, setCommentValue] = useState("");
   const [tags, setTags] = useState([]);
+  const [status, setStatus] = useState("todo");
   const [canUpdate, setCanUpdate] = useState(false);
   const {enqueueSnackbar} = useSnackbar();
-  const {created, user, content, comments, status} = props.entry || {};
+  const {isAdmin, forceUpdate} = props;
+  const {created, user, content, comments} = props.entry || {};
 
   useEffect(() => {
     if (!props.open) return;
@@ -31,13 +40,17 @@ const Editor = props => {
   }, [props.open, props.entry]);
 
   useEffect(() => {
-    if (!editMode) return;
+    if (!props.open) return;
     setTitleValue(content?.title || "");
     setContentValue(content?.description || "");
-    setTags(content?.tags || []);
-  }, [editMode]);
+    setTags(props.entry.tags || []);
+    setStatus(props.entry.status || "todo");
+  }, [props.entry]);
+
+  if (!props.open) return null;
 
   const isNew = !props.entry?.id;
+  const createdFormatted = timeAgo(created, 3, 1);
 
   const dialogStyle = {
     "& .MuiDialog-container": {
@@ -49,30 +62,36 @@ const Editor = props => {
     },
   };
 
-  const readerIsAuthor = props.reader === user;
+  const readerIsAuthor = user && props.reader.username === user.username;
   const column = props.columns.find(column => column.status === status);
 
   const renderTitle = () => {
-    if (editMode) return <TextField placeholder="Title" fullWidth size="small" value={titleValue} onChange={e => setTitleValue(e.target.value)} />
-    return <Typography variant="h6">{content?.title}</Typography>;
-  };
-
-  const renderSubtitle = () => {
-    if (!column) return null;
+    if (editMode) return (
+      <TextField
+        placeholder="Title"
+        fullWidth
+        size="small"
+        value={titleValue}
+        onChange={e => setTitleValue(e.target.value)}
+      />
+    );
     return (
-      <div className={styles.row}>
-        <Typography color={column.color}>{column.title}</Typography>
-        <Typography color="grey">{created} by {user}</Typography>
-      </div>
+      <Typography variant="h6">
+        {titleValue}
+      </Typography>
     );
   };
 
   const renderContent = () => {
-    if (editMode) return (
-      <div data-color-mode="dark" className={`editor-container ${styles.editorContainer}`}>
+    return (
+      <div
+        data-color-mode="dark"
+        className={`editor-container ${styles.editorContainer}`}
+      >
         <ReactQuill
           ref={editorRef}
-          className={styles.markdownEditor}
+          readOnly={!editMode}
+          className={editMode ? styles.markdownEditor : styles.markdownPreview}
           theme="bubble"
           bounds=".editor-container"
           value={contentValue}
@@ -81,74 +100,86 @@ const Editor = props => {
         />
       </div>
     );
-    return <Typography>{content?.description}</Typography>;
   }
 
   const handleCommentPost = () => {
     const data = {
-      id: props.entry.id,
+      service: "warehouse",
+      kind: "rfe",
+      post_id: props.entry.id,
       user: props.reader,
-      comment: commentValue,
+      content: commentValue,
     }
     serverRequest("create_comment", data).then(resp => {
       if (!resp.ok) enqueueSnackbar("There was an issue posting your comment :(", {variant: "error"});
+      forceUpdate();
     })
-    props.setData(prev => {
-      const existing = [...prev];
-      const post = existing.find(post => post.id === props.entry.id);
-      post.comments.push({id: uuidv4(), user: props.reader, content: commentValue});
-      return existing;
-    });
+    // props.setData(prev => {
+    //   const existing = [...prev];
+    //   const post = existing.find(post => post.id === props.entry.id);
+    //   post.comments.push({id: uuidv4(), user: props.reader, content: commentValue});
+    //   return existing;
+    // });
     setCommentValue("");
   };
 
   const renderCommentEditor = () => {
     if (isNew) return null;
     return (
-      <DialogContent sx={{}}>
-        <div className={styles.comments}>
-          {comments?.map((comment, index) =>
-            <>
-              <div key={index} className={styles.commentContainer}>
+      <div className={styles.comments}>
+        <div className={styles.commentsScroll}>
+          <AnimatePresence mode="popLayout">
+            {comments.sort(sortComments).map((comment, index) =>
+              <motion.div
+                key={comment.id}
+                className={styles.commentContainer}
+                layout
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+              >
                 <div className={styles.commentHeader}>
-                  <Typography>{comment.created} by {comment.user}</Typography>
-                </div>
-                <div className={styles.commentContent}>
-                  <Typography>
-                    {comment.content}
+                  <Typography color="darkgrey">
+                    {timeAgo(comment.created, 3, 1)} by {comment.user.name || "Unknown"}
                   </Typography>
                 </div>
-              </div>
-              {index < comments.length - 1 ?
-                <div key={`${index}-connector`} className={styles.commentConnector} />
-                : null
-              }
-            </>
-          )}
-          <div data-color-mode="dark" className={`editor-container ${styles.editorCommentContainer}`}>
-            <ReactQuill
-              ref={editorRef}
-              className={styles.markdownEditor}
-              theme="bubble"
-              bounds=".editor-container"
-              value={commentValue}
-              placeholder="New Comment"
-              onChange={setCommentValue}
-            />
-            <div className={styles.postContainer}>
-              <Button
-                disabled={!commentValue}
-                onClick={handleCommentPost}
-                variant="outlined"
-                color="success"
-                sx={{minWidth: "150px"}}
-              >
-                Post
-              </Button>
-            </div>
-          </div>
+                <div
+                  data-color-mode="dark"
+                  className={`editor-container ${styles.commentContent}`}
+                >
+                  <ReactQuill readOnly theme="bubble" value={comment.content} />
+                </div>
+              </motion.div>
+              // {/* {index < comments.length - 1 ?
+              //   <div key={`${index}-connector`} className={styles.commentConnector} />
+              //   : null
+              // } */}
+            )}
+          </AnimatePresence>
         </div>
-      </DialogContent>
+        <div data-color-mode="dark" className={`editor-container ${styles.editorCommentContainer}`}>
+          <ReactQuill
+            ref={editorRef}
+            className={styles.markdownEditor}
+            theme="bubble"
+            bounds=".editor-container"
+            value={commentValue}
+            placeholder="New Comment"
+            onChange={setCommentValue}
+          />
+          {/* <div className={styles.postContainer}> */}
+          <Button
+            disabled={!commentValue}
+            onClick={handleCommentPost}
+            variant="outlined"
+            color="success"
+            sx={{margin: "auto"}}
+          >
+            Post Comment
+          </Button>
+          {/* </div> */}
+        </div>
+      </div>
     );
   };
 
@@ -157,7 +188,7 @@ const Editor = props => {
       kind: "rfe",
       service: "warehouse",
       user: props.reader,
-      status: "todo",
+      status: status,
       tags: tags,
       content: {
         title: titleValue,
@@ -167,8 +198,9 @@ const Editor = props => {
     serverRequest("create_post", data).then(resp => {
       if (resp.ok) enqueueSnackbar("Feedback created!", {variant: "success"});
       else enqueueSnackbar("There was an issue creating your post :(", {variant: "error"});
+      forceUpdate();
     })
-    props.setData(prev => [...prev, {...data, id: uuidv4(), comments: []}]);
+    // props.setData(prev => [...prev, {...data, id: uuidv4(), comments: []}]);
     props.onClose();
     setTitleValue("");
     setContentValue("");
@@ -176,29 +208,33 @@ const Editor = props => {
 
   const handleUpdate = () => {
     const data = {
-      id: props.entry.id,
+      post_id: props.entry.id,
       kind: "rfe",
       service: "warehouse",
-      status: "todo",
+      status: status,
+      updated_by: props.reader,
       tags: tags,
       content: {
         title: titleValue,
         description: contentValue,
       },
     }
-    serverRequest("create_post", data).then(resp => {
-      if (resp.ok) enqueueSnackbar("Feedback created!", {variant: "success"});
-      else enqueueSnackbar("There was an issue creating your post :(", {variant: "error"});
+    serverRequest("update_post", data).then(resp => {
+      if (resp.ok) {
+        enqueueSnackbar("Updated!", {variant: "success"});
+        setEditMode(false);
+      }
+      else enqueueSnackbar("There was an issue updating this post", {variant: "error"});
+      forceUpdate();
     })
-    props.setData(prev => {
-      const existing = [...prev];
-      const index = existing.findIndex(post => post.id === props.entry.id);
-      existing[index] = data;
-      return existing;
-    });
-    props.onClose();
-    setTitleValue("");
-    setContentValue("");
+    // props.setData(prev => {
+    //   const existing = [...prev];
+    //   const index = existing.findIndex(post => post.id === props.entry.id);
+    //   existing[index] = data;
+    //   return existing;
+    // });
+    // setTitleValue("");
+    // setContentValue("");
   };
 
   return (
@@ -210,20 +246,49 @@ const Editor = props => {
       sx={dialogStyle}
     >
       <div className={styles.container}>
-        {readerIsAuthor ?
-          <Button color="success" variant="outlined" sx={{position: "absolute", right: 10, top: 10}}>
+        {/* {readerIsAuthor && !editMode ?
+          <Button
+            color="success"
+            variant="outlined"
+            sx={{position: "absolute", right: 10, top: 10}}
+            onClick={() => setEditMode(true)}
+          >
             Edit
           </Button>
-        : null}
+        : null} */}
         {renderTitle()}
-        {renderSubtitle()}
-        <div className={styles.content}>
+        {!isNew && <Typography color="grey">
+          {createdFormatted} by {user?.name || "Unknown"}
+        </Typography>}
+        <div className={styles.row}>
+          {isAdmin && editMode ? <TextField
+            placeholder="Status"
+            size="small"
+            select
+            sx={{minWidth: 150}}
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            {props.columns.map(column =>
+              <MenuItem key={column.status} value={column.status}>
+                {column.title}
+              </MenuItem>
+            )}
+            </TextField> : <Typography sx={{minWidth: "max-content", color: column.colour}}>
+              {column.title}
+            </Typography>
+          }
+          <Tags tags={tags} setTags={setTags} editMode={editMode} />
+        </div>
+        <div className={styles.contentContainer}>
           {renderContent()}
         </div>
-        {!isNew && <Typography variant="h6">
-          {comments && comments.length > 0 ? "Comments" : "No comments"}
-        </Typography>}
-        {renderCommentEditor()}
+        <div className={styles.commentsContainer}>
+          {!isNew && <Typography variant="h6">
+            {comments && comments.length > 0 ? "Comments" : "No comments"}
+          </Typography>}
+          {renderCommentEditor()}
+        </div>
         <div className={styles.buttonContainer}>
           <Button color="secondary" variant="outlined" size="small" onClick={props.onClose}>Close</Button>
           {isNew &&
@@ -231,9 +296,14 @@ const Editor = props => {
               Create
             </Button>
           }
-          {!isNew &&
+          {(isAdmin || readerIsAuthor) && !isNew && editMode &&
             <Button color="success" variant="outlined" size="small" onClick={handleUpdate}>
               Update
+            </Button>
+          }
+          {(isAdmin || readerIsAuthor) && !isNew && !editMode &&
+            <Button color="success" variant="outlined" size="small" onClick={() => setEditMode(true)}>
+              Edit
             </Button>
           }
         </div>

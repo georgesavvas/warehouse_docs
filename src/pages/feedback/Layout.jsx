@@ -2,11 +2,12 @@ import "react-quill/dist/quill.snow.css";
 
 import {AnimatePresence, motion} from "framer-motion";
 import {Button, Typography} from "@mui/material";
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 
 import Column from "../../components/kanban/Column";
 import Editor from "./Editor";
 import Feedback from "./Feedback";
+import { jwtDecode } from "jwt-decode";
 import { serverRequest } from "../../services";
 import styles from "./Layout.module.css";
 import { useEffect } from "react";
@@ -15,22 +16,22 @@ const columns = [
   {
     status: "todo",
     title: "Not Started",
-    color: "rgb(40, 85, 184)",
+    colour: "rgb(40, 85, 184)",
   },
   {
     status: "doing",
     title: "In Progress",
-    color: "rgb(44, 185, 44)",
+    colour: "rgb(44, 185, 44)",
   },
   {
     status: "testing",
     title: "Testing",
-    color: "rgb(185, 48, 48)",
+    colour: "rgb(185, 48, 48)",
   },
   {
     status: "done",
     title: "Done",
-    color: "rgb(27, 172, 128)",
+    colour: "rgb(27, 172, 128)",
   },
 ];
 
@@ -166,62 +167,95 @@ const extraData = [
   },
 ];
 
+const sortPosts = (a, b) => {
+  return a.created > b.created ? -1 : 1;
+};
+
 export const Layout = () => {
-  const [activeEntry, setActiveEntry] = useState();
+  const [activeEntry, setActiveEntry] = useState("");
   const [data, setData] = useState([]);
   const [user, setUser] = useState({});
+  const [admins, setAdmins] = useState([]);
+  const [forceUpdate, setForceUpdate] = useState(0);
 
   useEffect(() => {
     if (user.name && user.address) return;
-    const data = localStorage.getItem("warehouseUser");
-    if (!data) {
-      console.log
+    const userData = localStorage.getItem("warehouseUser");
+    if (!userData) {
+      setUser({});
       return;
     }
-    const userData = localStorage.getItem("warehouseUser");
-    const parsedUser = JSON.parse(userData);
-    if (!parsedUser.name || !parsedUser.email) {
+    const decodedData = jwtDecode(userData);
+    if (!decodedData.name || !decodedData.email) {
       console.log("Failed to parse user data", userData);
       return;
     }
-    parsedUser.username = parsedUser.email.split("@")[0];
-    setUser(parsedUser);
+    decodedData.username = decodedData.email.split("@")[0];
+    setUser(decodedData);
   }, []);
 
   useEffect(() => {
-    serverRequest("get_posts", {kind: "rfe"}).then(resp => {
-      if (resp?.data) setData(resp.data);
+    serverRequest("get_admins", {service: "warehouse"}).then(resp => {
+      if (resp?.data) setAdmins([...resp.data, "george"]);
+      else setAdmins(["george"]);
+    })
+  }, []);
+
+  useEffect(() => {
+    serverRequest("get_posts", {kind: "rfe", service: "warehouse"}).then(resp => {
+      if (resp?.data) setData(resp.data.sort(sortPosts));
       else setData(extraData);
     });
-  }, []);
+  }, [forceUpdate]);
+
+  const activeEntryData = useMemo(() => {
+    if (!activeEntry) return {};
+    return data.find(post => post.id === activeEntry) || {};
+  });
+
+  const isAdmin = admins.includes(user.username);
 
   return (
     <div className={styles.container}>
       <Editor
-        reader={user.username || "george"}
+        reader={user}
         columns={columns}
-        entry={activeEntry}
+        entry={activeEntryData}
         open={!!activeEntry}
-        onClose={() => setActiveEntry()}
+        onClose={() => setActiveEntry("")}
         setData={setData}
+        isAdmin={isAdmin}
+        forceUpdate={() => setForceUpdate(prev => prev + 1)}
       />
       <Typography variant="h4" textAlign="center">Feedback</Typography>
       <div className={styles.row}>
         {columns.map(column =>
-          <Column key={column.status} title={column.title} color={column.color}>
-            <AnimatePresence>
-              {column.status === "todo" ?
-                <div
-                  className={styles.newContainer}
-                  key={`${column.status}-new`}
-                  onClick={() => setActiveEntry({})}
-                >
-                  <Typography variant="h5" textAlign="center">Create</Typography>
-                </div>
-                : null
-              }
+          <Column key={column.status} title={column.title} color={column.colour}>
+            {column.status === "todo" ?
+              <div
+                className={styles.newContainer}
+                key={`${column.status}-new`}
+                onClick={() => setActiveEntry("new")}
+              >
+                <Typography variant="h5" textAlign="center">Create</Typography>
+              </div>
+              : null
+            }
+            <AnimatePresence mode="popLayout">
               {data.filter(entry => entry.status === column.status).map(entry =>
-                <Feedback key={entry.id} data={entry} onClick={() => setActiveEntry(entry)} />
+                <motion.div
+                  layout
+                  key={entry.id}
+                  initial={{opacity: 0}}
+                  animate={{opacity: 1}}
+                  exit={{opacity: 0}}
+                >
+                  <Feedback
+                    data={entry}
+                    onClick={() => setActiveEntry(entry.id)}
+                    onDelete={() => setForceUpdate(prev => prev + 1)}
+                  />
+                </motion.div>
               )}
             </AnimatePresence>
           </Column>
