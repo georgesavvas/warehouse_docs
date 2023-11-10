@@ -11,17 +11,17 @@ WORKDIR /app
 USER george
 
 
-# COPY package*.json ./
+COPY package*.json ./
 
-# RUN npm install
+RUN npm install
 
-# COPY source .
+COPY source .
 
-# RUN npm run build
+RUN npm run build
 
-# FROM nginx:stable-alpine
-# COPY --from=build /app/build /usr/share/nginx/html
-# COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD ["npm", "run", "start", "--poll", "1000", "--", "--host", "0.0.0.0"]
-# CMD ["nginx", "-g", "daemon off;"]
+# CMD ["npm", "run", "start", "--poll", "1000", "--", "--host", "0.0.0.0"]
+CMD ["nginx", "-g", "daemon off;"]
