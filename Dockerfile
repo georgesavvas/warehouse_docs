@@ -15,7 +15,12 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY source .
+COPY docs .
+COPY src .
+COPY static .
+COPY babel.config.js .
+COPY docusaurus.config.js .
+COPY sidebars.js .
 
 RUN npm run build
 
