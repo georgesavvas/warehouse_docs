@@ -1,13 +1,11 @@
+import React, {useState} from 'react';
 import {ThemeProvider, createTheme} from "@mui/material/styles";
 
-import {default as FeedbackLayout} from './Layout';
 import GlobalStyles from "@mui/material/GlobalStyles";
+import {Kanban} from '../../components/kanban/Kanban';
 import Layout from '@theme/Layout';
-import React, {useState} from 'react';
-import { Typography } from "@mui/material";
-import darkScrollbar from "@mui/material/darkScrollbar";
-import styles from "./index.module.css";
 import { SnackbarProvider } from 'notistack';
+import darkScrollbar from "@mui/material/darkScrollbar";
 
 const darkTheme = createTheme({
   palette: {
@@ -29,7 +27,7 @@ const Feedback = () => {
       <GlobalStyles styles={{ ...darkScrollbar() }} />
       <SnackbarProvider autoHideDuration={3000} maxSnack={3}>
         <Layout title="Feedback">
-          <FeedbackLayout />
+          <Kanban service="warehouse" kind="rfe" title="Feedback" />
         </Layout>
       </SnackbarProvider>
     </ThemeProvider>

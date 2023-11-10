@@ -11,13 +11,11 @@ const FeatureList = [
     title: "Feedback",
     Svg: require('@site/static/img/feedback.svg').default,
     href: "feedback",
-    wip: true,
   },
   {
     title: "Issues",
     Svg: require('@site/static/img/bug_grey.svg').default,
     href: "issues",
-    wip: true,
   },
 ];
 

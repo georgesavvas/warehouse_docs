@@ -6,7 +6,7 @@ import {Button, Dialog, DialogContent, DialogTitle, MenuItem, TextField, Typogra
 import React, {useEffect, useRef, useState} from "react";
 
 import ReactQuill from "react-quill";
-import Tags from "../../components/Tags";
+import Tags from "../Tags";
 import {serverRequest} from "../../services";
 import styles from "./Editor.module.css";
 import timeAgo from "../../utils/timeAgo";
@@ -25,9 +25,8 @@ const Editor = props => {
   const [commentValue, setCommentValue] = useState("");
   const [tags, setTags] = useState([]);
   const [status, setStatus] = useState("todo");
-  const [canUpdate, setCanUpdate] = useState(false);
   const {enqueueSnackbar} = useSnackbar();
-  const {isAdmin, forceUpdate} = props;
+  const {service, kind, isAdmin, forceUpdate} = props;
   const {created, user, content, comments} = props.entry || {};
 
   useEffect(() => {
@@ -104,8 +103,8 @@ const Editor = props => {
 
   const handleCommentPost = () => {
     const data = {
-      service: "warehouse",
-      kind: "rfe",
+      service: service,
+      kind: kind,
       post_id: props.entry.id,
       user: props.reader,
       content: commentValue,
@@ -185,8 +184,8 @@ const Editor = props => {
 
   const handleCreate = () => {
     const data = {
-      kind: "rfe",
-      service: "warehouse",
+      kind: kind,
+      service: service,
       user: props.reader,
       status: status,
       tags: tags,
@@ -209,10 +208,10 @@ const Editor = props => {
   const handleUpdate = () => {
     const data = {
       post_id: props.entry.id,
-      kind: "rfe",
-      service: "warehouse",
+      kind: kind,
+      service: service,
       status: status,
-      updated_by: props.reader,
+      user: props.reader,
       tags: tags,
       content: {
         title: titleValue,
@@ -223,9 +222,9 @@ const Editor = props => {
       if (resp.ok) {
         enqueueSnackbar("Updated!", {variant: "success"});
         setEditMode(false);
+        forceUpdate();
       }
       else enqueueSnackbar("There was an issue updating this post", {variant: "error"});
-      forceUpdate();
     })
     // props.setData(prev => {
     //   const existing = [...prev];
