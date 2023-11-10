@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y sudo && apt-get clean all && \
     echo 'george ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 WORKDIR /app
-# RUN chmod 777 /app/*
+RUN chmod 777 /app/*
 USER george
 
 
