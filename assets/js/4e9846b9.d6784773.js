@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwarehouse_docs=self.webpackChunkwarehouse_docs||[]).push([[8116],{3233:(e,s,a)=>{a.r(s),a.d(s,{default:()=>l});var c=a(7294),r=a(5489);const t="container_zpmx",l=()=>c.createElement("div",{className:t},c.createElement(r.Z,null,"User: george"))}}]);
