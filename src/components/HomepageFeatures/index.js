@@ -4,28 +4,28 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: "Docs",
-    Svg: require('@site/static/img/docs02.svg').default,
-    href: "docs",
+    icon: "public/media/docs02.svg",
+    href: "/docs",
   },
   {
     title: "Feedback",
-    Svg: require('@site/static/img/feedback.svg').default,
-    href: "feedback",
+    icon: "public/media/feedback.svg",
+    href: "/feedback",
   },
   {
     title: "Issues",
-    Svg: require('@site/static/img/bug_grey.svg').default,
-    href: "issues",
+    icon: "public/media/bug_grey.svg",
+    href: "/issues",
   },
 ];
 
-function Feature({Svg, title, href, wip}) {
+const Feature = ({icon, title, href, wip}) => {
   return (
     <div className={styles.feature} style={wip ? {pointerEvents: "none"} : null}>
       {wip ? <div className={styles.wipContainer}><h2>Coming Soon!</h2></div> : null}
       <a href={href} style={wip ? {pointerEvents: "none", filter: "brightness(50%)"} : null}>
         <div className="text--center">
-          <Svg className={styles.featureSvg + " " + styles[title]} role="img" />
+          <img className={styles.featureSvg + " " + styles[title]} src={icon} />
         </div>
         <div className="text--center padding-horiz--md padding-vert--md">
           <h1 style={{color: "lightgrey", textDecoration: "none"}}>{title}</h1>
@@ -33,9 +33,9 @@ function Feature({Svg, title, href, wip}) {
       </a>
     </div>
   );
-}
+};
 
-export default function HomepageFeatures() {
+export const HomepageFeatures = () => {
   return (
     <div className={styles.featureContainer}>
       {FeatureList.map((props, idx) => (
@@ -43,4 +43,6 @@ export default function HomepageFeatures() {
       ))}
     </div>
   );
-}
+};
+
+export default HomepageFeatures;
