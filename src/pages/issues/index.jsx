@@ -1,10 +1,13 @@
-import SafeKanban from '@site/src/components/kanban/SafeKanban';
 import Layout from '@theme/Layout';
 
 const Issues = () => {
   return (
     <Layout title="Issues">
-      <SafeKanban service="warehouse" kind="issue" title="Issues" />
+      <iframe
+        width="100%"
+        height="100%"
+        src="http://ws-vm02:8091/warehouse/issues"
+      />;
     </Layout>
   )
 }

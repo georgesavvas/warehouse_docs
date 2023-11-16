@@ -13,15 +13,12 @@ const config = {
     "https://fonts.googleapis.com/css?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
   ],
 
-  url: 'https://github.com',
-  baseUrl: '/',
+  url: 'http://warehouse.electrictheatre.tv',
+  baseUrl: '/docs/',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -33,6 +30,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: "/",
           sidebarPath: require.resolve('./sidebars.js'),
         },
         theme: {
@@ -56,11 +54,12 @@ const config = {
         disableSwitch: true,
       },
       navbar: {
-        // title: 'Warehouse',
         hideOnScroll: true,
         logo: {
           alt: 'Warehouse Logo',
           src: 'img/logo_type.png',
+          href: 'http://ws-vm02:8091/warehouse',
+          target: "_self",
           style: {height: "60px"},
         },
         items: [
@@ -69,22 +68,6 @@ const config = {
             position: "right",
             itemProp: 44,
           },
-          // {
-          //   type: 'docSidebar',
-          //   sidebarId: 'docs',
-          //   position: 'right',
-          //   label: 'Docs',
-          // },
-          // {
-          //   href: '/feedback',
-          //   position: 'right',
-          //   label: 'Feedback',
-          // },
-          // {
-          //   href: '/issues',
-          //   position: 'right',
-          //   label: 'Issues',
-          // },
         ],
       },
       prism: {
@@ -96,15 +79,15 @@ const config = {
         {name: "referrer", content: "strict-origin-when-cross-origin"},
       ],
     }),
-  headTags: [
-    {
-      tagName: 'link',
-      attributes: {
-        AccessControlAllowOrigin: "*",
-        crossorigin: "anonymous",
-      },
-    },
-  ]
+  // headTags: [
+  //   {
+  //     tagName: 'link',
+  //     attributes: {
+  //       AccessControlAllowOrigin: "*",
+  //       crossorigin: "anonymous",
+  //     },
+  //   },
+  // ]
 };
 
 module.exports = config;

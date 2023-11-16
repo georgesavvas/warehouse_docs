@@ -5,6 +5,7 @@ slug: /
 ---
 
 # Introduction
+
 Welcome to Warehouse! An asset library flexible enough to store any kind of asset, from images and videos to DCC scenes and code snippets.
 
 :::info
