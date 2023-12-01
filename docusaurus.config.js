@@ -58,7 +58,7 @@ const config = {
         logo: {
           alt: 'Warehouse Logo',
           src: 'img/logo_type.png',
-          href: 'http://ws-vm02:8091/warehouse',
+          href: 'http://warehouse.electrictheatre.tv',
           target: "_self",
           style: {height: "60px"},
         },
