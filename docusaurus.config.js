@@ -63,11 +63,11 @@ const config = {
           style: {height: "60px"},
         },
         items: [
-          {
-            type: "custom-login",
-            position: "right",
-            itemProp: 44,
-          },
+          // {
+          //   type: "custom-login",
+          //   position: "right",
+          //   itemProp: 44,
+          // },
         ],
       },
       prism: {
