@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwarehouse_docs=self.webpackChunkwarehouse_docs||[]).push([[5653],{2741:(e,s,h)=>{h.r(s),h.d(s,{default:()=>t});var a=h(5356),c=h(5893);const t=()=>(0,c.jsxs)(a.Z,{title:"Feedback",children:[(0,c.jsx)("iframe",{width:"100%",height:"100%",src:"http://ws-vm02:8091/warehouse/feedback"}),";"]})}}]);
