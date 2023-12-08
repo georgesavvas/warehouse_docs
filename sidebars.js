@@ -35,7 +35,7 @@ const sidebars = {
         "basic_guides/using_collections",
         "basic_guides/asset_tagging",
         "basic_guides/using_components",
-        "basic_guides/running_tasks",
+        "basic_guides/running_actions",
         "basic_guides/running_workflows",
         "basic_guides/create_single_asset",
       ],
@@ -52,8 +52,7 @@ const sidebars = {
       items: [
         "advanced_guides/advanced_filtering",
         "advanced_guides/creating_collections",
-        "advanced_guides/caching",
-        "advanced_guides/creating_tasks",
+        "advanced_guides/creating_actions",
         "advanced_guides/creating_workflows",
         "advanced_guides/caching",
       ],

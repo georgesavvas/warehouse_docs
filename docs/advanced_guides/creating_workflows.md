@@ -1,7 +1,10 @@
 ---
 title: Creating Workflows
-sidebar_position: 5
 ---
+
+:::warning
+This section is due a makeover, please hold tight! In the meantime I recommend you [get in touch](../feedback.md) if you require any changes to existing workflows or any new ones.
+:::
 
 Workflows exist both globally and on a per asset basis. Global ones should be more generic and fit a wide range of use cases. More specific workflows should exist on the assets themselves.
 
