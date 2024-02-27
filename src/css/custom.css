@@ -21,10 +21,8 @@
 .main-wrapper {
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.75);
-  backdrop-filter: brightness(50%);
-
 }
-
+z
 .navbar__logo {
   height: 60px;
 }
